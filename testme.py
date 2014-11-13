@@ -25,8 +25,8 @@ print b
 print "\ntesting poly"
 c=pypolypart.Poly()
 #c.Init(3)
-polypoints = [(0,0),(10,0), (9,5), (10,10),(0,10)]
-c.setPoints(polypoints,False)
+poly1 = [(0,0),(10,0), (9,5), (10,10),(0,10)]
+c.setPoints(poly1,False)
 print "pointnum=",c.pnum
 print "points=",c.getPoints()
 #c[0]=a
@@ -38,5 +38,14 @@ print "made partition object:", pp
 print "triangles", pp.Triangulate_EC(c)
 print "hulls", pp.ConvexPartition_HM(c)
 
-print "\n combi triangles and hulls"
-print pypolypart.polys_to_tris_and_hulls([polypoints])
+print "\n combi triangles and hulls method, single poly"
+print pypolypart.polys_to_tris_and_hulls([poly1])
+
+
+print "\n combi triangles and hulls method, two polys"
+poly2 = [(99+0,0),(99+10,0), (99+9,5), (99+10,10),(99+0,10)]
+print pypolypart.polys_to_tris_and_hulls([poly1, poly2])
+
+print "\n combi triangles and hulls method, poly with hole"
+hole1 = [(1,1),(1,3), (3,1)]
+print pypolypart.polys_to_tris_and_hulls([poly1], [hole1])

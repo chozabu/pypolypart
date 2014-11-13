@@ -103,9 +103,8 @@ def polys_to_tris_and_hulls(polys, holes=[]):
     cdef cpplist[TPPLPoly]* chulls = new cpplist[TPPLPoly]()
     cdef TPPLPoly cpoly
     cdef TPPLPoly* cpolyp
-    print "converting polys to C"
+    #print "converting polys to C"
     for p in polys:
-        
         pypoly=p
         numpoints = len(p)
         cpolyp = new TPPLPoly()
@@ -113,28 +112,31 @@ def polys_to_tris_and_hulls(polys, holes=[]):
         cpoly.Init(numpoints)
         _points = cpoly.GetPoints()
         for i in xrange(numpoints):
-            ix=i
             npoint=pypoly[i]
-            print pypoly[i]
             _points[i].x=npoint[0]
             _points[i].y=npoint[1]
-        for i in xrange(numpoints):
-            ix=i
-            print _points[i].x
-        print "pushing poly"
         cpolys.push_back(cpoly)
-        print "pushed poly"
-    
-    #print cpolys[0][0].GetPoints()[0].x
-    #cpoly = cpolys[0][0]
-    #print cpoly
-    print "pointcheck"
-    print _points[0].x
-    print "removing holes"
+
+    #print "converting holes to C"
+    for p in holes:
+        pypoly=p
+        numpoints = len(p)
+        cpolyp = new TPPLPoly()
+        cpoly = cpolyp[0]
+        cpoly.Init(numpoints)
+        cpoly.SetHole(True)
+        _points = cpoly.GetPoints()
+        for i in xrange(numpoints):
+            npoint=pypoly[i]
+            _points[i].x=npoint[0]
+            _points[i].y=npoint[1]
+        cpolys.push_back(cpoly)
+
+    #print "removing holes"
     pp.RemoveHoles(cpolys, noholepolys)
-    print "triangulating"
+    #print "triangulating"
     pp.Triangulate_EC(noholepolys, ctriangles)
-    print "generating hulls"
+    #print "generating hulls"
     pp.ConvexPartition_HM(noholepolys, chulls)
     
     triangles = []
