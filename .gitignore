@@ -1,0 +1,5 @@
+*.swp
+*.pyc
+pypolypart/python/pypolypart.cpp
+*.so
+build
