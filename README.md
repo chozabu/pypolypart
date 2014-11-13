@@ -35,3 +35,6 @@ output:
       [(9.0, 5.0), (1.0, 3.0), (3.0, 1.0)]
      ]
     }
+
+keywords: optimal convex hull decomposition partition generation split segment physics triangulation Hertel-Mehlhorn
+ear clipping Keil-Snoeyink monotone
