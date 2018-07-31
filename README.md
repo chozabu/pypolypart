@@ -3,6 +3,10 @@ A rather incomplete Cython wrapper for https://code.google.com/p/polypartition/
 you can chuck a list of tuples representing a polygon at it and get a list of triangles and convex hulls
 order must be counter-clockwise for non-holes, clockwise for holes.
 
+build with
+
+    python2 setup.py build_ext --inplace
+
 example:
 
     import pypolypart
@@ -36,5 +40,11 @@ output:
      ]
     }
 
+Troubleshooting:
+
+Try drawing your polygon - is it a normal polygon? do any parts self-intersect? are there any doubled points? infinitly thin areas?  
+Check is it winding in the correct direction? Try simplifying it by removing points too close to other points (see pygametest for a simple function for this).  
+Finally - try sub-sections of your polygon, see if you can discover the "Problem Area"
+    
 keywords: optimal convex hull decomposition partition generation split segment physics triangulation Hertel-Mehlhorn
 ear clipping Keil-Snoeyink monotone
